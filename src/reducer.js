@@ -5,23 +5,33 @@ const initialState = {
 	todos : []
 }
 
-function todoApp(preState = initialState,action) {
+function todos(state = [],action) {
 	switch(action.type) {
-		case SET_VISIBILITY_FILTER : 
-			return Object.assign({},preState,{
-				visibilityFilter:action.filter
-			});
-		case ADD_TODO :
-			return Object.assign({},preState,{
-				todos:[...preState.todos,{text:action.text,completed:false}]
-			});
-		case COMPLETE_TOTO:
-			return Object.assign({},preState,{
-				todos:[
-				...preState.todos.slice(0,action.index),
-				Object.assign({},preState.todos[action.index],{completed:action.false}),
-				...preState.todos.slice(action.index+1),
-				]
-			});
+		case ADD_TODO:
+			return [...state,{text:action.text,completed:false}];
+		case COMPLETE_TOTO :
+			return [
+				state.slice(0,action.index),
+				Object.assign({},state[action.index],{completed:true}),
+				state.slice(action.index+1)
+			];
+		default:
+			return state;
+	}
+}
+
+function setVisibility(visibility = VisibiltyFilter.SHOW_ALL,action) {
+	switch(action.type) {
+		case SET_VISIBILITY_FILTER:
+			return action.filter；
+		default:
+			return visibility
+	}
+}
+
+function todoApp(state = initialState,action) {
+	return {
+		visibilityFilter:setVisibility(state.visibilityFilter,action),
+		todos : todos(state,action)
 	}
 }
