@@ -65,9 +65,17 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
+	var _AddTodo = __webpack_require__(174);
+
+	var _AddTodo2 = _interopRequireDefault(_AddTodo);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement('div', null), document.getElementById('app'));
+	var onAddClick = function onAddClick(text) {
+		console.log(text);
+	};
+
+	_reactDom2.default.render(_react2.default.createElement(_AddTodo2.default, { onAddClick: onAddClick }), document.getElementById('app'));
 
 /***/ },
 /* 2 */
@@ -19692,7 +19700,7 @@
 
 	var store = (0, _redux.createStore)(_reducer2.default);
 
-	var unsub = store.subscribe(function () {
+	var unsubscribe = store.subscribe(function () {
 		console.log(store.getState());
 	});
 
@@ -19701,6 +19709,8 @@
 	store.dispatch((0, _actions.addTodo)('hello world3'));
 	store.dispatch((0, _actions.completeTodo)(2));
 	store.dispatch((0, _actions.setVisibilityFilter)(_actions.VisibiltyFilter.SHOW_COMPLETE));
+
+	unsubscribe();
 
 	exports.default = store;
 
@@ -20540,6 +20550,77 @@
 			filter: filter
 		};
 	}
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(148);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(2);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AddTodo = function (_React$Component) {
+		_inherits(AddTodo, _React$Component);
+
+		function AddTodo() {
+			_classCallCheck(this, AddTodo);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(AddTodo).apply(this, arguments));
+		}
+
+		_createClass(AddTodo, [{
+			key: 'handleClick',
+			value: function handleClick() {
+				var inputNode = this.refs.input;
+				var todoText = inputNode.value.trim();
+				inputNode.value = '';
+				this.props.onAddClick(todoText);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement('input', { ref: 'input' }),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.handleClick.bind(this) },
+						'Add Todo'
+					)
+				);
+			}
+		}]);
+
+		return AddTodo;
+	}(_react2.default.Component);
+
+	exports.default = AddTodo;
+
+
+	AddTodo.propTypes = {
+		onAddClick: _react2.default.PropTypes.func.isRequired
+	};
 
 /***/ }
 /******/ ]);
