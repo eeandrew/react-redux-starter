@@ -5,7 +5,7 @@ export default class Todo extends React.Component {
 		return (
 			<li style={{
 				textDecoration:this.props.completed ? 'line-through' :'none'
-			}} onClick={this.props.onClick}>
+			}} onClick={this.props.onItemClick}>
 				{this.props.text}
 			</li>
 		);
@@ -15,5 +15,5 @@ export default class Todo extends React.Component {
 Todo.propTypes = {
 	completed : React.PropTypes.bool,
 	text : React.PropTypes.string,
-	onClick : React.PropTypes.func
+	onItemClick : React.PropTypes.func
 }
